@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@reloaddk/stylelint-recommended"
+  ]
+}

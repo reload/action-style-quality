@@ -1,0 +1,49 @@
+name: 'Style Quality'
+description: 'This action runs Stylelint + Reviewdog 🐶 and Prettier.'
+inputs:
+  github_token:
+    description: 'The Github API token needed for Reviewdog and checks.'
+  working_directory:
+    description: Where is your package.json and therefore your node_modules located.
+    required: false
+    default: ''
+  prettier_target:
+    description: 'Where should Prettier look?'
+    required: false
+    default: './**/*'
+  stylelint_target:
+    description: 'Where should Stylelint look?'
+    required: false
+    default: '.'
+  file_extensions:
+    description: 'Which file extensions should be considered.'
+    required: false
+    default: '.css,.sass,.scss,.less'
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Install Reviewdog
+      uses: reviewdog/action-setup@v1
+      with:
+        reviewdog_version: latest
+
+    - name: Stylelint
+      uses: reviewdog/action-stylelint@v1
+      with:
+        github_token: ${{ inputs.github_token }}
+        reporter: github-pr-check
+        workdir: ${{ inputs.working_directory }}
+        stylelint_input: ${{ inputs.stylelint_target }}{${{ inputs.file_extensions }}}
+
+    - name: Prettier
+      uses: reload/action-prettier@1.0.0
+      with:
+        github_token: ${{ inputs.github_token }}
+        working_directory: ${{ inputs.working_directory }}
+        prettier_args: ${{ inputs.prettier_target }}{${{ inputs.file_extensions }}}
+
+branding:
+  icon: 'terminal'
+  color: 'gray-dark'

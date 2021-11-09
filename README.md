@@ -81,7 +81,7 @@ jobs:
       uses: reload/action-style-quality@1.0.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        working_directory: ./web/themes/custom/custom-theme/js
+        working_directory: ./web/themes/custom/custom-theme/scss
 ```
 
 ## Change targeted files
@@ -107,7 +107,7 @@ jobs:
       uses: reload/action-style-quality@1.0.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        file_extensions: '.ts,' # Default: '.js,.jsx,.ts,.tsx,.mjs'
+        file_extensions: '.css,' # Default: '.css,.sass,.scss,.less'
 ```
 
 ## Override stylelint and prettier targets
@@ -137,5 +137,5 @@ jobs:
         # 'working_directory' is set to.
         working_directory: './src' # Default: ''
         prettier_target: './code/**/*' # Default: './**/*'
-        eslint_target: './code' # Default: '.'
+        stylelint_target: './code' # Default: '.'
 ```

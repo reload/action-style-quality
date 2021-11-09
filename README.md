@@ -137,5 +137,5 @@ jobs:
         # 'working_directory' is set to.
         working_directory: './src' # Default: ''
         prettier_target: './code/**/*' # Default: './**/*'
-        stylelint_target: './code' # Default: '.'
+        stylelint_target: './code/**/*' # Default: './**/*'
 ```

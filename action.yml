@@ -14,7 +14,7 @@ inputs:
   stylelint_target:
     description: 'Where should Stylelint look?'
     required: false
-    default: '.'
+    default: './**/*'
   file_extensions:
     description: 'Which file extensions should be considered.'
     required: false

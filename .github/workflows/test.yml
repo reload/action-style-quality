@@ -1,4 +1,4 @@
-name: Stylelint Quality
+name: Style Quality
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: Stylelint Quality
+    name: Style Quality
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

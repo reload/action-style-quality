@@ -28,3 +28,17 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         working_directory: ./test
+
+    # This is expected to fail.
+    - name: Test missing stylelint
+      id: missing
+      uses: ./
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        working_directory: ./
+      continue-on-error: true
+
+    # Fail if the previous step didn't.
+    - name: Check failure
+      if: steps.missing.outcome != 'failure'
+      run: exit 1

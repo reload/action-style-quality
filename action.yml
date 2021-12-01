@@ -29,6 +29,17 @@ runs:
       with:
         reviewdog_version: latest
 
+    # reviewdog/action-stylelint doesn't actually fail if stylelint
+    # isn't installed, so we check for it explicitly here.
+    - name: Ensure Stylelint is available
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        # Simply try to run it, if it's not there, the shell will
+        # error. It also catches some other possible problems
+        # preventing stylelint from working.
+        $(npm bin)/stylelint -v
+
     - name: Stylelint
       uses: reviewdog/action-stylelint@v1
       with:

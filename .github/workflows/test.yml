@@ -17,17 +17,33 @@ jobs:
       with:
         node-version: '16'
         cache: 'npm'
-        cache-dependency-path: ./test/package-lock.json
+        cache-dependency-path:  './test-*/package-lock.json'
 
-    - name: Install dependencies
+    - name: Install good test dependencies
       run: npm ci
-      working-directory: ./test
+      working-directory: ./test-good
 
-    - name: Stylelint Quality
+    - name: Stylelint Quality good test
       uses: ./
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        working_directory: ./test
+        working_directory: ./test-good
+
+    - name: Install bad test dependencies
+      run: npm ci
+      working-directory: ./test-bad
+
+    - name: Stylelint Quality bad test
+      uses: ./
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        working_directory: ./test-bad
+      continue-on-error: true
+
+    # Fail if the previous step didn't.
+    - name: Check bad test failure
+      if: steps.missing.outcome != 'failure'
+      run: exit 1
 
     # This is expected to fail.
     - name: Test missing stylelint
@@ -39,6 +55,6 @@ jobs:
       continue-on-error: true
 
     # Fail if the previous step didn't.
-    - name: Check failure
+    - name: Check missing stlyelint failure
       if: steps.missing.outcome != 'failure'
       run: exit 1

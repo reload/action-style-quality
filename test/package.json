@@ -1,7 +1,0 @@
-{
-  "name": "action-style-quality",
-  "version": "1.0.0",
-  "devDependencies": {
-    "@reloaddk/daft": "^1.1.1"
-  }
-}

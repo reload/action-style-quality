@@ -3,6 +3,7 @@ description: 'This action runs Stylelint + Reviewdog 🐶 and Prettier.'
 inputs:
   github_token:
     description: 'The Github API token needed for Reviewdog and checks.'
+    required: true
   working_directory:
     description: Where is your package.json and therefore your node_modules located.
     required: false
@@ -49,11 +50,10 @@ runs:
         stylelint_input: ${{ inputs.stylelint_target }}{${{ inputs.file_extensions }}}
 
     - name: Prettier
-      uses: reload/action-prettier@1.0.0
-      with:
-        github_token: ${{ inputs.github_token }}
-        working_directory: ${{ inputs.working_directory }}
-        prettier_args: ${{ inputs.prettier_target }}{${{ inputs.file_extensions }}}
+      shell: bash
+      run: |
+        $(npm bin)/prettier --no-error-on-unmatched-pattern --check "${{ inputs.prettier_target }}{${{ inputs.file_extensions }}}"
+      working-directory: ${{ inputs.working_directory }}
 
 branding:
   icon: 'terminal'

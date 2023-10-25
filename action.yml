@@ -39,7 +39,7 @@ runs:
         # Simply try to run it, if it's not there, the shell will
         # error. It also catches some other possible problems
         # preventing stylelint from working.
-        $(npm bin)/stylelint -v
+        npm exec -- stylelint --version
 
     - name: Stylelint
       uses: reviewdog/action-stylelint@v1
@@ -52,7 +52,7 @@ runs:
     - name: Prettier
       shell: bash
       run: |
-        $(npm bin)/prettier --no-error-on-unmatched-pattern --check "${{ inputs.prettier_target }}{${{ inputs.file_extensions }}}"
+        npm exec -- prettier --no-error-on-unmatched-pattern --check "${{ inputs.prettier_target }}{${{ inputs.file_extensions }}}"
       working-directory: ${{ inputs.working_directory }}
 
 branding:
